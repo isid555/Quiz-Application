@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <style>
+         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #E1EFF6;
+        }
+        .app {
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: block;
+            margin: 10px auto;
+            height: 45px;
+            width: 50vw;
+            text-align:start;
+            border: 0cap;
+        }
+        .btn:hover{
+            /* background-color: yellowgreen; */
+            box-shadow: 0 4px 8px rgba(5, 163, 236, 0.3);
+        }
+        .btn{
+            font-size: larger;
+            font-weight: 500;
+            
+        }
+        #next{
+            background-color: goldenrod;
+            color: teal;
+            font-size: larger;
+            padding: 10px;
+            cursor: pointer;
+        }
+       </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="app">
+            <h2 id="question">Question goes here</h2>
+            <div id="options">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+            <div class="status">
+                <p class="question-count"></p>
+                <p class="score-count"></p>
+            </div>
+            <button id="next">NEXT</button>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+ 
+
+</html>
