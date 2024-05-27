@@ -2,10 +2,10 @@ const questions = [
     {
         question: 'Which HTML tag is used to define an inline style?',
         answers: [
-            { choice: "< script >" , correct: false },
-            { choice:  "< css >" , correct: false },
-            { choice:  "< style >", correct: true },
-            { choice:   "< span >", correct: false }
+            { choice: "< script>", correct: false },
+            { choice:  "< css>", correct: false },
+            { choice:  "< style>", correct: true },
+            { choice:   "< span>", correct: false }
         ]
     },
     {
@@ -20,24 +20,19 @@ const questions = [
     {
         question: 'Which of the following is the correct way to comment in HTML?',
         answers: [
-            { choice: ' // Comment ', correct: false },
-            { choice: ' < !-- Comment -- > ', correct: true },
-            { choice: ' /* Comment */ ', correct: false },
-            { choice: ' < ! Comment > ', correct: false }
+            { choice: '// Comment', correct: false },
+            { choice: '< ! -- Comment -->', correct: true },
+            { choice: '/ * Comment */', correct: false },
+            { choice: '< !Comment>', correct: false }
         ]
     }
 ];
 
-
-
-
-
-
 const questionElement = document.getElementById('question');
 const answerButtons = document.getElementById('options');
 const nextButton = document.getElementById('next');
-const question_count = document.querySelector('.question-count');
-const score_count = document.querySelector('.score-count');
+const questionCountElement = document.querySelector('.question_count');
+const scoreCountElement = document.querySelector('.score_count');
 
 let currentQuestionIndex = 0;
 let score = 0;
@@ -52,6 +47,7 @@ function startQuiz() {
 
 function showQuestion() {
     resetState();
+    updateLive(); // Update the question count display
     let currentQuestion = questions[currentQuestionIndex];
     questionElement.innerHTML = currentQuestion.question;
 
@@ -59,10 +55,7 @@ function showQuestion() {
         const button = document.createElement("button");
         button.innerHTML = answer.choice;
         button.classList.add("btn");
-        if (answer.correct) {
-            button.dataset.correct = answer.correct;
-        }
-        button.addEventListener('click', selectAnswer);
+        button.addEventListener('click', () => selectAnswer(answer.correct));
         answerButtons.appendChild(button);
     });
 }
@@ -74,75 +67,36 @@ function resetState() {
     nextButton.style.display = 'none';
 }
 
+function selectAnswer(correct) {
+    // Do not update the score if an answer has already been selected
+    if (nextButton.style.display !== 'none') return;
 
-
-function selectAnswer(e) {
-    const selectedButton = e.target;
-    let correct = selectedButton.dataset.correct === 'true';
-
-    // Remove background color from previously selected button
-    Array.from(answerButtons.children).forEach(button => {
-        button.style.backgroundColor = '';
-    });
-
-    // Set background color for the selected button
-    selectedButton.style.backgroundColor = '#F9F8DD';
     if (correct) {
-
         score++;
-
     }
 
-    // updateLive();
-
-    Array.from(answerButtons.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct === 'true');
-    });
-
-    if (questions.length > currentQuestionIndex + 1) {
-        nextButton.style.display = 'block';
-    } else {
-        storeResult(score);
-        window.location.href = "result.html";
+    if (currentQuestionIndex === 2) {
+        // Save score to localStorage when reaching the third question
+        localStorage.setItem('quizScore', score);
     }
-}
-// storing
-// function result(score){
-//     storeResult(score);
-    // window location href
-    //  = "result.html";
-   
-// }
-function storeResult(score) {
-    localStorage.setItem('quizScore', score);
-}
-// function  updateLive(){
-//     score_count.textContent = `Score : ${score}` ;
-//     question_count.textContent = `${currentQuestionIndex+1}` + " / 3"
-// }
-//
-function setStatusClass(element, correct) {
-    clearStatusClass(element);
-    if (correct) {
-        element.classList.add('correct');
-    } else {
-        element.classList.add('incorrect');
-    }
+
+    // Enable the "NEXT" button after selecting an answer
+    nextButton.style.display = 'block';
 }
 
-function clearStatusClass(element) {
-    element.classList.remove('correct');
-    element.classList.remove('incorrect');
+function updateLive() {
+    scoreCountElement.textContent = `Score: ${score}`;
+    questionCountElement.textContent = `Question: ${currentQuestionIndex + 1} / ${questions.length}`;
 }
 
 nextButton.addEventListener('click', () => {
-    if (questions.length > currentQuestionIndex + 1) {
+    if (currentQuestionIndex === questions.length - 1) {
+        // Redirect to another page after clicking "NEXT" on the last question
+        window.location.href = "result.html";
+    } else {
         currentQuestionIndex++;
         showQuestion();
-    } else {
-        startQuiz();
     }
 });
 
 startQuiz();
-
