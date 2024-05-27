@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questions</title>
     <style>
-         body {
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,7 +34,6 @@
         .btn{
             font-size: larger;
             font-weight: 500;
-            
         }
         #next{
             background-color: goldenrod;
@@ -43,28 +42,50 @@
             padding: 10px;
             cursor: pointer;
         }
-       </style>
+        .live{
+            /*border: 2px solid #3ACCF3;*/
+            margin: 2px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            /*gap: 1000px;*/
+
+        }
+        .score_count{
+            font-size: xx-large;
+            color: #256D9C;
+            font-family: "Bookman Old Style";
+        }
+        .question_count{
+            font-size: xx-large;
+            color: #256D9C;
+            font-family: "Bookman Old Style";
+
+        }
+        .heading{
+            color: #0B6BAA;
+            font-family: "Old English Text MT";
+            font-size: xxx-large;
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
-    
-    <div class="container">
-        <div class="app">
-            <h2 id="question">Question goes here</h2>
-            <div id="options">
-                <button class="btn">Answer 1</button>
-                <button class="btn">Answer 2</button>
-                <button class="btn">Answer 3</button>
-                <button class="btn">Answer 4</button>
-            </div>
-            <div class="status">
-                <p class="question-count"></p>
-                <p class="score-count"></p>
-            </div>
-            <button id="next">NEXT</button>
+<div class="container">
+    <h1 class="heading">Quick Quiz Aplication</h1>
+    <div class="app">
+        <div class="live">
+            <p class="score_count"></p>
+            <p class="question_count"></p>
         </div>
+        <h2 id="question">Question goes here</h2>
+        <div id="options">
+            <!-- Answer buttons will be dynamically added here -->
+        </div>
+        <button id="next">NEXT</button>
     </div>
+</div>
 </body>
 <script src="script.js"></script>
- 
-
 </html>
